@@ -1,9 +1,17 @@
-<div class="hero-unit">
-  <h1>'Allo, 'Allo!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
-</div>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>URL</th>
+    <th>like</th>
+    <th>tweet</th>
+    <th>plus one</th>
+  </tr>
+
+  <tr ng-repeat="record in data">
+    <td>{{record.title}}</td>
+    <td>{{record.url}}</td>
+    <td><like url="{{record.url}}"></like></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>

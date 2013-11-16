@@ -26,7 +26,14 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <header id="main-header">
+      <h1>Social Counter</h1>
+    </header>
+    <section class="input" ng-controller="InputCtrl">
+      <input type="text" ng-model="targetUrl">
+      <button ng-click="onSubmit(targetUrl)">submit</button>
+    </section>
+    <main="container" ng-view></main>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -60,7 +67,10 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/input.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/GssManip.js"></script>
+        <script src="scripts/directives/LikeCount.js"></script>
         <!-- endbuild -->
 </body>
 </html>
