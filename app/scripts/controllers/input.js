@@ -31,6 +31,12 @@ angular.module('socialCounterApp')
       }
     };
 
+    $scope.onKeyUp = function($event, url) {
+      if($event.keyCode === 13){
+        $scope.onSubmit(url);
+      }
+    };
+
     function isGss(url){
       return url.indexOf('https://docs.google.com') !== -1;
     }

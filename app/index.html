@@ -6,9 +6,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
+    <title>Social Counter</title>
+    <meta name="description" content="social counter | This application display like, tweet, G+1, pocket button to show social count.">
     <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="tomoyuki kashiro,social counter,angularjs" />
+    <meta name="author" content="tomoyuki kashiro" />
+    <meta property="og:title" content="Social Counter" />
+    <meta property="og:description" content="social counter | This application display like, tweet, G+1, pocket button to show social count." />
+    <meta property="og:url" content="http://kashiro.github.io/social-counter/" />
+    <meta property="og:image" content="http://kashiro.github.io/social-counter/images/ogp.png" />
+    <meta property="og:site_name" content="Social Counter" />
+    <meta property="og:type" content="website">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!-- build:css(.tmp) styles/main.css -->
@@ -26,8 +35,7 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
     <ul class="social">
-      <li class="button github offset"><iframe src="http://ghbtns.com/github-btn.html?user=kashiro&repo=social-counter&type=fork"
-  allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe></li>
+      <li class="button github offset"><iframe src="http://ghbtns.com/github-btn.html?user=kashiro&repo=social-counter&type=fork" allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe></li>
       <li class="button facebook"><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fkashiro.github.io%2Fsocial-counter&amp;width=100&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></li>
       <li class="button twitter offset">
         <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kashiro.github.io/social-counter">Tweet</a>
@@ -42,12 +50,20 @@
     </header>
     <section class="input" ng-controller="InputCtrl">
       <div class="url-form">
-        <input class="form-control input-lg" placeholder="http://google.com or Google Spread Sheet Url" ng-model="targetUrl">
+        <input class="form-control input-lg" placeholder="http://google.com or Google Spread Sheet Url" ng-model="targetUrl" ng-keyUp="onKeyUp($event, targetUrl)">
       </div>
       <button ng-click="onSubmit(targetUrl)" type="button" class="btn btn-primary btn-lg">submit</button>
     </section>
-    <div class="desc alert alert-info">
-      <p>Input a url you want to check social button count or Google spread sheet which contains title and url. like <a href="https://docs.google.com/a/kayac.com/spreadsheet/ccc?key=0AlALbG5Dyb1hdEt3V3NzRFZxR0FlQ2VxYk5rckp4cGc&usp=drive_web#gid=0" target="_blank">this !</a></p>
+    <div class="desc text-muted">
+      <p>Input a url you want to check social button count or Google spread sheet which contains title and url. like <a class="alert-link" href="https://docs.google.com/a/kayac.com/spreadsheet/ccc?key=0AlALbG5Dyb1hdEt3V3NzRFZxR0FlQ2VxYk5rckp4cGc&usp=drive_web#gid=0" target="_blank">this !</a></p>
+    </div>
+    <div ng-controller="ErrorCtrl">
+      <div class="panel panel-danger" ng-show="isError">
+        <div class="panel-heading"><h3 class="panel-title">OOPS...</h3></div>
+        <div class="panel-body">
+          Google spread sheet url you typed may be private. Please set it public.
+        </div>
+      </div>
     </div>
     <main class="main-data" ng-view></main>
 
@@ -72,6 +88,7 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/services/GssManip.js"></script>
+        <script src="scripts/controllers/error.js"></script>
         <script src="scripts/controllers/input.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/directives/Like.js"></script>

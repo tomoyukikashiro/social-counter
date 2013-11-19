@@ -10,7 +10,7 @@
  */
 
 angular.module('socialCounterApp')
-  .controller('MainCtrl', ['$scope', '$routeParams', 'GssManip', function ($scope, $routeParams, GssManip) {
+  .controller('MainCtrl', ['$scope', '$routeParams', 'GssManip', '$rootScope', function ($scope, $routeParams, GssManip, $rootScope) {
 
     var targetUrl = $scope.targetUrl = decodeURIComponent($routeParams.targetUrl),
         gssManip;
@@ -23,9 +23,17 @@ angular.module('socialCounterApp')
 
       if(hasHttp(targetUrl)){
         $scope.data = makeDataFromUrl(targetUrl);
+        $rootScope.$broadcast('onSuccess');
       }else{
         gssManip = new GssManip(targetUrl, 'od6');
         gssManip.load(function(data){
+
+          if(data){
+            $rootScope.$broadcast('onSuccess');
+          }else{
+            $rootScope.$broadcast('onError');
+          }
+
           $scope.data = data;
         });
       }
