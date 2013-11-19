@@ -32,7 +32,7 @@ angular.module('socialCounterApp')
     };
 
     function isGss(url){
-      return url.indexOf('https://docs.google.com/spreadsheet/ccc?key=') !== -1;
+      return url.indexOf('https://docs.google.com') !== -1;
     }
 
     function queryToObj(query){
