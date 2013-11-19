@@ -1,0 +1,87 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Social Counter</title>
+    <meta name="description" content="social counter | This application display like, tweet, G+1, pocket button to show social count.">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="tomoyuki kashiro,social counter,angularjs">
+    <meta name="author" content="tomoyuki kashiro">
+    <meta property="og:title" content="Social Counter">
+    <meta property="og:description" content="social counter | This application display like, tweet, G+1, pocket button to show social count.">
+    <meta property="og:url" content="http://kashiro.github.io/social-counter/">
+    <meta property="og:image" content="http://kashiro.github.io/social-counter/images/ogp.png">
+    <meta property="og:site_name" content="Social Counter">
+    <meta property="og:type" content="website">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="styles/bb233b26.main.css">
+
+  <body ng-app="socialCounterApp" class="container">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <ul class="social">
+      <li class="button github offset"><iframe src="http://ghbtns.com/github-btn.html?user=kashiro&repo=social-counter&type=fork" allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe></li>
+      <li class="button facebook"><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fkashiro.github.io%2Fsocial-counter&amp;width=100&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px" allowtransparency="true"></iframe></li>
+      <li class="button twitter offset">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kashiro.github.io/social-counter">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+    </ul>
+
+    <!-- Add your site or application content here -->
+    <header id="main-header" class="main-header">
+      <h1 class="title">Social Counter</h1>
+      <p class="lead">Display summry of social button count.</p>
+    </header>
+    <section class="input" ng-controller="InputCtrl">
+      <div class="url-form">
+        <input class="form-control input-lg" placeholder="http://google.com or Google Spread Sheet Url" ng-model="targetUrl" ng-keyup="onKeyUp($event, targetUrl)">
+      </div>
+      <button ng-click="onSubmit(targetUrl)" type="button" class="btn btn-primary btn-lg">submit</button>
+    </section>
+    <div class="desc text-muted">
+      <p>Input a url you want to check social button count or Google spread sheet which contains title and url. like <a class="alert-link" href="https://docs.google.com/a/kayac.com/spreadsheet/ccc?key=0AlALbG5Dyb1hdEt3V3NzRFZxR0FlQ2VxYk5rckp4cGc&usp=drive_web#gid=0" target="_blank">this !</a></p>
+    </div>
+    <div ng-controller="ErrorCtrl">
+      <div class="panel panel-danger" ng-show="isError">
+        <div class="panel-heading"><h3 class="panel-title">OOPS...</h3></div>
+        <div class="panel-body">
+          Google spread sheet url you typed may be private. Please set it public.
+        </div>
+      </div>
+    </div>
+    <main class="main-data" ng-view=""></main>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-45868406-1', 'kashiro.github.io');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+        <script src="scripts/1a7cc04e.scripts.js"></script>
+</body>
+</head></html>
