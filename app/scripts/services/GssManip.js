@@ -1,24 +1,29 @@
 'use strict';
 
 /**
- * @class parser for google spread sheet json format
- *        Thank you your kindness @debiru
- *        http://jsdo.it/debiru/jCkS
+ * google spreadsheet parser
  *
- * @return {[type]} [description]
+ *  Thank you for your kindness @debiru
+ *  http://jsdo.it/debiru/jCkS
+ *
+ * @class
+ * @version 0.1.0
+ * @author Tomoyuki Kashiro <kashiro@github>
+ * @license MIT
  */
-angular.module('socialCounterApp').factory('GssManip', [function () {
+
+angular.module('socialCounterApp').factory('GssManip', ['$rootScope', '$http', function ($rootScope, $http) {
 
   function GssManip(ssid, sid){
     this.ssid      = ssid;
     this.sid       = sid;
-    this.jsonUrl   = 'https://spreadsheets.google.com/feeds/cells/' + this.ssid + '/' + this.sid + '/public/basic?alt=json-in-script';
+    this.jsonUrl   = 'https://spreadsheets.google.com/feeds/cells/' + this.ssid + '/' + this.sid + '/public/basic?alt=json-in-script&callback=JSON_CALLBACK';
     this.data      = null;
     this.callback  = null;
-    this.$event    = $({});
+    this.$event    = $rootScope.$new();
     this.loadQueue = [];
 
-    this.onloaded($.proxy(function() {
+    this.onloaded(angular.bind(this, function() {
       this.callback(this.getData());
 
       this.postprocess();
@@ -26,7 +31,7 @@ angular.module('socialCounterApp').factory('GssManip', [function () {
       if (this.loadQueue.length > 0) {
         this._load.apply(this, this.loadQueue.shift());
       }
-    }, this));
+    }));
   }
 
   GssManip.trim = function(str) {
@@ -42,15 +47,15 @@ angular.module('socialCounterApp').factory('GssManip', [function () {
   };
 
   GssManip.prototype.onloaded = function(callback) {
-    this.$event.on('loaded', callback);
+    this.$event.$on('loaded', callback);
   };
 
   GssManip.prototype.loaded = function() {
-    this.$event.trigger('loaded');
+    this.$event.$emit('loaded');
   };
 
   GssManip.prototype.done = function(res) {
-    this.data = this.parseFeedEntry(res.feed.entry);
+    this.data = this.parseFeedEntry(res.data.feed.entry);
   };
 
   GssManip.prototype.fail = function() {
@@ -62,18 +67,15 @@ angular.module('socialCounterApp').factory('GssManip', [function () {
   };
 
   GssManip.prototype.ajax = function() {
-    return $.ajax({
-      type     : 'GET',
-      dataType : 'jsonp',
-      url      : this.jsonUrl
-    }).done($.proxy(this.done, this)).fail($.proxy(this.fail, this)).always($.proxy(this.always, this));
+    return $http.jsonp(this.jsonUrl, {method : 'GET'})
+      .then(angular.bind(this, this.done), angular.bind(this, this.fail))['finally'](angular.bind(this, this.always));
   };
 
   GssManip.prototype.parseFeedEntry = function(cells) {
     var keys = [],
         data = [];
 
-    $.each(cells, function(idx, cell) {
+    angular.forEach(cells, function(cell) {
       var m, r, c, t, key;
 
       m = cell.id.$t.match(/R(\d+)C(\d+)$/);
@@ -96,8 +98,8 @@ angular.module('socialCounterApp').factory('GssManip', [function () {
     });
 
     // define empty parameter as a empty string
-    $.each(data, function(i, params) {
-      $.each(keys, function(k, key) {
+    angular.forEach(data, function(params) {
+      angular.forEach(keys, function(key) {
         if (params[key] === null) {
           params[key] = '';
         }
@@ -108,11 +110,11 @@ angular.module('socialCounterApp').factory('GssManip', [function () {
   };
 
   GssManip.prototype.getData = function() {
-    return (this.data !== null ? $.extend(true, [], this.data) : null);
+    return (this.data !== null ? angular.extend([], this.data) : null);
   };
 
   GssManip.prototype._load = function(callback, reload) {
-    this.callback = callback || $.noop;
+    this.callback = callback || angular.noop;
 
     if (this.data === null || reload) {
       this.preprocess();

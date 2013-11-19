@@ -1,6 +1,6 @@
 node_modules
 dist
 .tmp
-.TODO
+*.TODO
 .sass-cache
 app/bower_components

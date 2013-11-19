@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('socialCounterApp', [])
+angular.module('socialCounterApp', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {})

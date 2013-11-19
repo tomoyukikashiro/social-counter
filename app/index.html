@@ -13,9 +13,10 @@
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
         <!-- endbuild -->
-</head>
-  <body ng-app="socialCounterApp">
+
+  <body ng-app="socialCounterApp" class="container">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -24,53 +25,59 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
+    <ul class="social">
+      <li class="button github offset"><iframe src="http://ghbtns.com/github-btn.html?user=kashiro&repo=social-counter&type=fork"
+  allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe></li>
+      <li class="button facebook"><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fkashiro.github.io%2Fsocial-counter&amp;width=100&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></li>
+      <li class="button twitter offset">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kashiro.github.io/social-counter">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+    </ul>
 
     <!-- Add your site or application content here -->
-    <header id="main-header">
-      <h1>Social Counter</h1>
+    <header id="main-header" class="main-header">
+      <h1 class="title">Social Counter</h1>
+      <p class="lead">Display summry of social button count.</p>
     </header>
     <section class="input" ng-controller="InputCtrl">
-      <input type="text" ng-model="targetUrl">
-      <button ng-click="onSubmit(targetUrl)">submit</button>
+      <div class="url-form">
+        <input class="form-control input-lg" placeholder="http://google.com or Google Spread Sheet Url" ng-model="targetUrl">
+      </div>
+      <button ng-click="onSubmit(targetUrl)" type="button" class="btn btn-primary btn-lg">submit</button>
     </section>
-    <main="container" ng-view></main>
+    <div class="desc alert alert-info">
+      <p>Input a url you want to check social button count or Google spread sheet which contains title and url. like <a href="https://docs.google.com/a/kayac.com/spreadsheet/ccc?key=0AlALbG5Dyb1hdEt3V3NzRFZxR0FlQ2VxYk5rckp4cGc&usp=drive_web#gid=0" target="_blank">this !</a></p>
+    </div>
+    <main class="main-data" ng-view></main>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+      ga('create', 'UA-45868406-1', 'kashiro.github.io');
+      ga('send', 'pageview');
+
     </script>
 
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-        <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
-        <!-- endbuild -->
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/services/GssManip.js"></script>
         <script src="scripts/controllers/input.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/services/GssManip.js"></script>
-        <script src="scripts/directives/LikeCount.js"></script>
+        <script src="scripts/directives/Like.js"></script>
+        <script src="scripts/directives/Tweet.js"></script>
+        <script src="scripts/directives/PlusOne.js"></script>
+        <script src="scripts/directives/Pocket.js"></script>
         <!-- endbuild -->
 </body>
 </html>

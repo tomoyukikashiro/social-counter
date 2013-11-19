@@ -1,21 +1,42 @@
 'use strict';
 
-angular.module('socialCounterApp')
-  .controller('MainCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+/**
+ * main controller
+ *
+ * @class
+ * @version 0.1.0
+ * @author Tomoyuki Kashiro <kashiro@github>
+ * @license MIT
+ */
 
-    var targetUrl = $scope.targetUrl = decodeURIComponent($routeParams.targetUrl);
+angular.module('socialCounterApp')
+  .controller('MainCtrl', ['$scope', '$routeParams', 'GssManip', function ($scope, $routeParams, GssManip) {
+
+    var targetUrl = $scope.targetUrl = decodeURIComponent($routeParams.targetUrl),
+        gssManip;
 
     $scope.$watch('targetUrl', function(){
 
-      if(isGss(targetUrl)){
-      }else{
-        $scope.data = makeDataFromUrl(targetUrl);
+      if(hasJs(targetUrl)){
+        return;
       }
 
+      if(hasHttp(targetUrl)){
+        $scope.data = makeDataFromUrl(targetUrl);
+      }else{
+        gssManip = new GssManip(targetUrl, 'od6');
+        gssManip.load(function(data){
+          $scope.data = data;
+        });
+      }
     });
 
-    function isGss(url){
-      return url.indexOf('https://docs.google.com/spreadsheet/ccc?key=') !== -1;
+    function hasHttp(url){
+      return url.indexOf('http') !== -1;
+    }
+
+    function hasJs(url){
+      return url.indexOf('javascript:') !== -1;
     }
 
     function makeDataFromUrl(url) {

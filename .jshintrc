@@ -20,6 +20,8 @@
   "smarttabs": true,
   "globals": {
     "angular": false,
-    "$"      : true
+    "$"      : true,
+    "twttr"  : true,
+    "gapi"   : true
   }
 }
