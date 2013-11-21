@@ -11,9 +11,13 @@ This application display like, tweet, G+1, pocket button to show social count.
 
 * input a url.
 
+![screenshot](http://kashiro.github.io/social-counter/images/screenshot3.png)
+
 or
 
 * input google spread sheet. ( it is public permission )
+
+![screenshot](http://kashiro.github.io/social-counter/images/screenshot4.png)
 
 and show social button count.
 
