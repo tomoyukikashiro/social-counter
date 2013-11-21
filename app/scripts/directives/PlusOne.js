@@ -11,13 +11,13 @@
  */
 
 angular.module('socialCounterApp')
-  .directive('plusone', [function () {
+  .directive('plusone', ['$sanitize', function ($sanitize) {
     return {
       restrict: 'E',
       template:'<div class="g-plusone" data-size="medium" data-href="%url%"></div>',
       link: function(scope, elm, attrs){
         var url = attrs.url;
-        elm[0].outerHTML = elm[0].outerHTML.replace('%url%', url);
+        elm[0].outerHTML = $sanitize(elm[0].outerHTML.replace('%url%', url));
 
         if(scope.$last){
           elm.ready(function(){

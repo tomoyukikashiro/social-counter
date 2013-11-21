@@ -11,13 +11,13 @@
  */
 
 angular.module('socialCounterApp')
-  .directive('pocket', [function () {
+  .directive('pocket', ['$sanitize', function ($sanitize) {
     return {
       restrict: 'E',
       template: '<a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-save-url="%url%" data-lang="en"></a>',
       link: function(scope, elm, attrs){
         var url = attrs.url;
-        elm[0].outerHTML = elm[0].outerHTML.replace('%url%', url);
+        elm[0].outerHTML = $sanitize(elm[0].outerHTML.replace('%url%', url));
 
         if(scope.$last){
           elm.ready(function(){
