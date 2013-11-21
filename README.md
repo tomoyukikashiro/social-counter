@@ -20,6 +20,9 @@ and show social button count.
 ## How to create Google Spread Sheet to use this app
 
 * 1 create spread sheet.
+
+![screenshot](http://kashiro.github.io/social-counter/images/screenshot2.png)
+
 * 2 input title(optional) and url(required) data. (A1 cell)
 * 3 change sharing settings to public. (`share(upper right menu)`)
 
