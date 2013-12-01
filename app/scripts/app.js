@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('socialCounterApp', ['ngRoute'])
+angular.module('socialCounterApp', ['ngRoute', 'ngSanitize'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {})

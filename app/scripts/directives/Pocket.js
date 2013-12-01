@@ -16,8 +16,8 @@ angular.module('socialCounterApp')
       restrict: 'E',
       template: '<a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-save-url="%url%" data-lang="en"></a>',
       link: function(scope, elm, attrs){
-        var url = attrs.url;
-        elm[0].outerHTML = $sanitize(elm[0].outerHTML.replace('%url%', url));
+        var url = $sanitize(attrs.url);
+        elm[0].outerHTML = elm[0].outerHTML.replace('%url%', url);
 
         if(scope.$last){
           elm.ready(function(){
