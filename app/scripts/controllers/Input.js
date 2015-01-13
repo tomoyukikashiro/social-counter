@@ -21,9 +21,9 @@ angular.module('socialCounterApp')
         return;
       }
 
-      if(this.isGss(url)){
+      if($scope.isGss(url)){
         path = url.split('?')[1];
-        ssid = this.queryToObj(path).key;
+        ssid = $scope.queryToObj(path).key;
         $location.path(ssid);
       }else{
         $location.path(encodeURIComponent(targetUrl));
@@ -31,12 +31,12 @@ angular.module('socialCounterApp')
     };
 
     $scope.onSubmit = function(url) {
-      this.goResultPage(url);
+      $scope.goResultPage(url);
     };
 
     $scope.onKeyUp = function($event, url) {
       if($event.keyCode === 13){
-        this.goResultPage(url);
+        $scope.goResultPage(url);
       }
     };
 

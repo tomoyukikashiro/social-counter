@@ -5,27 +5,27 @@ describe('Controller: ErrorController', function () {
   // load the controller's module
   beforeEach(module('socialCounterApp'));
 
-  var errorCtrl,scope, _$rootScope;
+  var errorCtrl,$scope, $rootScope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    _$rootScope = $rootScope;
-    scope = $rootScope.$new();
-    errorCtrl = $controller('ErrorController', {
-      $scope: scope
+  beforeEach(inject(function (_$controller_, _$rootScope_) {
+    $rootScope = _$rootScope_;
+    $scope = _$rootScope_.$new();
+    errorCtrl = _$controller_('ErrorController', {
+      $scope: $scope
     });
   }));
 
   describe('event onError', function () {
     it('isError change true', function(){
-      _$rootScope.$broadcast('onError');
-      expect(scope.isError).to.be.ok();
+      $rootScope.$broadcast('onError');
+      expect($scope.isError).to.be.ok();
     });
   });
   describe('event onSuccess', function () {
     it('isError change false', function(){
-      _$rootScope.$broadcast('onSuccess');
-      expect(scope.isError).to.not.be.ok();
+      $rootScope.$broadcast('onSuccess');
+      expect($scope.isError).to.not.be.ok();
     });
   });
 

@@ -17,12 +17,12 @@ angular.module('socialCounterApp')
 
     $scope.updateData = function(targetUrl){
 
-      if(this.hasJs(targetUrl)){
+      if($scope.hasJs(targetUrl)){
         return;
       }
 
-      if(this.hasHttp(targetUrl)){
-        $scope.data = this.makeDataFromUrl(targetUrl);
+      if($scope.hasHttp(targetUrl)){
+        $scope.data = $scope.makeDataFromUrl(targetUrl);
         $rootScope.$broadcast('onSuccess');
       }else{
         gssManip = new GssManip(targetUrl, 'od6');
@@ -57,6 +57,6 @@ angular.module('socialCounterApp')
     };
 
     // event
-    $scope.$watch('targetUrl', angular.bind(this, $scope.updateData));
+    $scope.$watch('targetUrl', angular.bind($scope, $scope.updateData));
 
   }]);
