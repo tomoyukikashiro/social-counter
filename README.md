@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kashiro/social-counter.svg)](https://travis-ci.org/kashiro/social-counter)
+
 social-counter
 ==============
 
