@@ -8,7 +8,7 @@
     <th>pocket</th>
   </tr>
 
-  <tr ng-repeat="record in data" repeat-done="layoutDone()">
+  <tr ng-repeat="record in data">
     <td>{{record.title}}</td>
     <td><a href="{{record.url}}" target="_blank">{{record.url}}</a></td>
     <td><like url="{{record.url}}"></like></td>

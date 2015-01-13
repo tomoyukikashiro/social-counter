@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('socialCounterApp')
-  .controller('ErrorCtrl', ['$scope', function ($scope) {
+  .controller('ErrorController', ['$scope', function ($scope) {
 
     $scope.isError = false;
 

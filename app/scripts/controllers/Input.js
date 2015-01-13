@@ -10,38 +10,41 @@
  */
 
 angular.module('socialCounterApp')
-  .controller('InputCtrl', ['$scope','$location', function ($scope, $location) {
+  .controller('InputController', ['$scope','$location', function ($scope, $location) {
 
-    var targetUrl = '';
-
-    $scope.onSubmit = function(url) {
-      var ssid, path;
-      targetUrl = url.trim();
+    $scope.goResultPage = function(url){
+      var ssid,
+          path,
+          targetUrl = url.trim();
 
       if(url === ''){
         return;
       }
 
-      if(isGss(url)){
+      if($scope.isGss(url)){
         path = url.split('?')[1];
-        ssid = queryToObj(path).key;
+        ssid = $scope.queryToObj(path).key;
         $location.path(ssid);
       }else{
         $location.path(encodeURIComponent(targetUrl));
       }
     };
 
+    $scope.onSubmit = function(url) {
+      $scope.goResultPage(url);
+    };
+
     $scope.onKeyUp = function($event, url) {
       if($event.keyCode === 13){
-        $scope.onSubmit(url);
+        $scope.goResultPage(url);
       }
     };
 
-    function isGss(url){
+    $scope.isGss = function(url){
       return url.indexOf('https://docs.google.com') !== -1;
-    }
+    };
 
-    function queryToObj(query){
+    $scope.queryToObj = function(query){
       var params, i = 0,
           q,
           kv,
@@ -62,6 +65,6 @@ angular.module('socialCounterApp')
         result[kv[0]] = decodeURIComponent(kv[1]);
       }
       return result;
-    }
+    };
 
   }]);
