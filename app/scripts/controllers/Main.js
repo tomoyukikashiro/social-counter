@@ -10,19 +10,19 @@
  */
 
 angular.module('socialCounterApp')
-  .controller('MainCtrl', ['$scope', '$routeParams', 'GssManip', '$rootScope', function ($scope, $routeParams, GssManip, $rootScope) {
+  .controller('MainController', ['$scope', '$routeParams', 'GssManip', '$rootScope', function ($scope, $routeParams, GssManip, $rootScope) {
 
-    var targetUrl = $scope.targetUrl = decodeURIComponent($routeParams.targetUrl),
-        gssManip;
+    $scope.targetUrl = decodeURIComponent($routeParams.targetUrl);
+    var gssManip;
 
-    $scope.$watch('targetUrl', function(){
+    $scope.updateData = function(targetUrl){
 
-      if(hasJs(targetUrl)){
+      if(this.hasJs(targetUrl)){
         return;
       }
 
-      if(hasHttp(targetUrl)){
-        $scope.data = makeDataFromUrl(targetUrl);
+      if(this.hasHttp(targetUrl)){
+        $scope.data = this.makeDataFromUrl(targetUrl);
         $rootScope.$broadcast('onSuccess');
       }else{
         gssManip = new GssManip(targetUrl, 'od6');
@@ -37,23 +37,26 @@ angular.module('socialCounterApp')
           $scope.data = data;
         });
       }
-    });
+    };
 
-    function hasHttp(url){
+    $scope.hasHttp = function(url){
       return url.indexOf('http') !== -1;
-    }
+    };
 
-    function hasJs(url){
-      return url.indexOf('javascript:') !== -1;
-    }
+    $scope.hasJs = function(url){
+      return url.indexOf('javascript:') !== -1; // jshint ignore:line
+    };
 
-    function makeDataFromUrl(url) {
+    $scope.makeDataFromUrl = function(url){
       return [
         {
           title: '',
           url: url
         }
       ];
-    }
+    };
+
+    // event
+    $scope.$watch('targetUrl', angular.bind(this, $scope.updateData));
 
   }]);
